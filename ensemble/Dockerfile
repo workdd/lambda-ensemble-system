@@ -14,6 +14,6 @@ RUN pip install -r lambda-ensemble-sequence/requirements.txt
 
 # move lambdafunc.py
 RUN cp lambda-ensemble-sequence/ensemble/lambda_function.py /var/task/
-RUN cp lambda-ensemble-sequence/imagenet_class_index.js /var/task/
+RUN cp lambda-ensemble-sequence/ensemble/imagenet_class_index.json /var/task/
 
 CMD ["lambda_function.lambda_handler"]
