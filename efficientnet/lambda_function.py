@@ -92,6 +92,7 @@ def lambda_handler(event, context):
     total_time = time.time() - total_start
 
     return {
+        'file_list': file_list,
         'model_name': model_name,
         'case_num': case_num,
         'batch_size': batch_size,
