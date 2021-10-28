@@ -15,14 +15,25 @@ table = dynamodb.Table(table_name)
 def get_s3(data):
     bucket = s3.Bucket(bucket_ensemble)
     response = []
-    for d in data:
-        filename = d['model_name'] + '_' + d['case_num'] + '.txt'
-        object = bucket.Object(filename)
-        res = object.get()
-        res = json.load(res['Body'])
-        res = list(res.values())
-        res = [ast.literal_eval(val) for val in res]
-        response.append(res)
+    if(isinstance(data, list)):
+        for d in data:
+            filename = d['model_name'] + '_' + d['case_num'] + '.txt'
+            object = bucket.Object(filename)
+            res = object.get()
+            res = json.load(res['Body'])
+            res = list(res.values())
+            res = [ast.literal_eval(val) for val in res]
+            response.append(res)
+    else:
+        models = ['mobilenet_v2','efficientnetb1','nasnetmobile']
+        for m in models:
+            filename = m +'_' + data['case_num'] + '.txt'
+            object = bucket.Object(filename)
+            res = object.get()
+            res = json.load(res['Body'])
+            res = list(res.values())
+            res = [ast.literal_eval(val) for val in res]
+            response.append(res)
     response = np.array(response)
     response = response.astype(np.float)
     response = response.sum(axis=0)
