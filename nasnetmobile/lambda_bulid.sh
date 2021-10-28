@@ -7,5 +7,3 @@ docker tag jg-seq-nasnetmobile $ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/jg-se
 aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com
 
 docker push $ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/jg-seq-nasnetmobile
-
-docker rmi -f $(docker images -q)
