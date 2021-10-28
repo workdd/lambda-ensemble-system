@@ -29,7 +29,7 @@ def get_dynamodb(data):
 
 def decode_predictions(preds, top=1):
     # get imagenet_class_index.json from container directory
-    with open('imagenet_class_index.json') as f:
+    with open('../imagenet_class_index.json') as f:
         CLASS_INDEX = json.load(f)
     results = []
     for pred in preds:
