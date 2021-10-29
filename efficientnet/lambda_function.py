@@ -8,7 +8,7 @@ import time
 
 bucket_name = 'imagenet-sample'
 bucket_ensemble = 'lambda-ensemble'
-model_name = 'efficientnet'
+model_name = 'efficientnetb1'
 model_path = '/var/task/lambda-ensemble-sequence/efficientnet/model/' + model_name
 model = load_model(model_path, compile=True)
 
