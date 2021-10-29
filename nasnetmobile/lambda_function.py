@@ -8,7 +8,7 @@ import time
 
 bucket_name = 'imagenet-sample'
 bucket_ensemble = 'lambda-ensemble'
-model_name = 'mobilenet_v2'
+model_name = 'nasnetmobile'
 model_path = '/var/task/lambda-ensemble-sequence/nasnetmobile/model/' + model_name
 model = load_model(model_path, compile=True)
 
