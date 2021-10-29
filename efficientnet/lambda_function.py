@@ -55,7 +55,7 @@ def filenames_to_input(file_list):
     imgs = []
     for file in file_list:
         img = read_image_from_s3(file)
-        img = img.resize((224, 224), Image.ANTIALIAS)
+        img = img.resize((240, 240), Image.ANTIALIAS)
         img = np.array(img)
         # if image is grayscale, convert to 3 channels
         if len(img.shape) != 3:
