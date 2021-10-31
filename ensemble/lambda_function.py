@@ -82,8 +82,7 @@ def lambda_handler(event, context):
     for single_result in result:
         single_result = [(img_class, label, round(acc * 100, 4)) for img_class, label, acc in single_result]
         results += single_result
-        pred_labels = [int(img_class[1:]) for img_class, label, acc in single_result]
-    print(np.array(actual_labels))
+        pred_labels += [int(img_class[1:]) for img_class, label, acc in single_result]
     acc = np.sum(np.array(actual_labels) == np.array(pred_labels)) / len(actual_labels)
 
     return {
