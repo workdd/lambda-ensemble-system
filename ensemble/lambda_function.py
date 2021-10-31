@@ -36,7 +36,7 @@ def get_s3(data):
             res = list(res.values())
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
-        actual_labels = [label.split('/')[1].split('_')[0] for label in data['file_list']]
+        actual_labels = [int(label.split('/')[1].split('_')[0][1:]) for label in data['file_list']]
     response = np.array(response)
     response = response.astype(np.float)
     response = response.mean(axis=0)
@@ -82,8 +82,8 @@ def lambda_handler(event, context):
     for single_result in result:
         single_result = [(img_class, label, round(acc * 100, 4)) for img_class, label, acc in single_result]
         results += single_result
-        pred_labels = [img_class for img_class, label, acc in single_result]
-
+        pred_labels = [int(img_class[1:]) for img_class, label, acc in single_result]
+    print(np.array(actual_labels))
     acc = np.sum(np.array(actual_labels) == np.array(pred_labels)) / len(actual_labels)
 
     return {
