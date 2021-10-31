@@ -15,7 +15,8 @@ table = dynamodb.Table(table_name)
 def get_s3(data):
     bucket = s3.Bucket(bucket_ensemble)
     response = []
-    if(isinstance(data, list)):
+    actual_labels = []
+    if (isinstance(data, list)):
         for d in data:
             filename = d['model_name'] + '_' + d['case_num'] + '.txt'
             object = bucket.Object(filename)
@@ -24,20 +25,22 @@ def get_s3(data):
             res = list(res.values())
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
+        actual_labels = [label.split('/')[1].split('_')[0] for label in data[0]['file_list']]
     else:
-        models = ['mobilenet_v2','efficientnetb0','nasnetmobile']
+        models = ['mobilenet_v2', 'efficientnetb0', 'nasnetmobile']
         for m in models:
-            filename = m +'_' + data['case_num'] + '.txt'
+            filename = m + '_' + data['case_num'] + '.txt'
             object = bucket.Object(filename)
             res = object.get()
             res = json.load(res['Body'])
             res = list(res.values())
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
+        actual_labels = [label.split('/')[1].split('_')[0] for label in data['file_list']]
     response = np.array(response)
     response = response.astype(np.float)
     response = response.mean(axis=0)
-    return response
+    return response, actual_labels
 
 
 def get_dynamodb(data):
@@ -72,16 +75,21 @@ def decode_predictions(preds, top=1):
 def lambda_handler(event, context):
     results = []
     get_start = time.time()
-    result = get_s3(event)
+    result, actual_labels = get_s3(event)
     get_time = time.time() - get_start
     result = decode_predictions(result)
+    pred_labels = []
     for single_result in result:
         single_result = [(img_class, label, round(acc * 100, 4)) for img_class, label, acc in single_result]
         results += single_result
+        pred_labels = [label for img_class, label, acc in single_result]
+
+    acc = np.sum(np.array(actual_labels) == np.array(pred_labels)) / len(actual_labels)
 
     return {
         'result': results,
         'get_time': get_time,
         'total_time': time.time() - get_start,
-        'fin_time': time.time()
+        'fin_time': time.time(),
+        'accuracy': acc
     }
