@@ -16,6 +16,7 @@ def get_s3(data):
     bucket = s3.Bucket(bucket_ensemble)
     response = []
     actual_labels = []
+    case_num = 0
     if (isinstance(data, list)):
         for d in data:
             filename = d['model_name'] + '_' + d['case_num'] + '.txt'
@@ -26,6 +27,7 @@ def get_s3(data):
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
         actual_labels = [label.split('/')[1].split('_')[0] for label in data[0]['file_list']]
+        case_num = data[0]['case_num']
     else:
         models = ['mobilenet_v2', 'efficientnetb0', 'nasnetmobile']
         for m in models:
@@ -37,10 +39,11 @@ def get_s3(data):
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
         actual_labels = [int(label.split('/')[1].split('_')[0][1:]) for label in data['file_list']]
+        case_num = data['case_num']
     response = np.array(response)
     response = response.astype(np.float)
     response = response.mean(axis=0)
-    return response, actual_labels
+    return response, actual_labels, case_num
 
 
 def get_dynamodb(data):
@@ -75,7 +78,7 @@ def decode_predictions(preds, top=1):
 def lambda_handler(event, context):
     results = []
     get_start = time.time()
-    result, actual_labels = get_s3(event)
+    result, actual_labels, case_num = get_s3(event)
     get_time = time.time() - get_start
     result = decode_predictions(result)
     pred_labels = []
@@ -89,6 +92,6 @@ def lambda_handler(event, context):
         'result': results,
         'get_time': get_time,
         'total_time': time.time() - get_start,
-        'fin_time': time.time(),
+        'fin_time': time.time() - case_num,
         'accuracy': acc
     }
