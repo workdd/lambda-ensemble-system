@@ -22,8 +22,7 @@ def get_dynamodb(data):
         response.append(res)
     response = np.array(response)
     response = response.astype(np.float)
-    response = response.sum(axis=0)
-    response = response / len(data)
+    response = response.mean(axis=0)
     return response
 
 
