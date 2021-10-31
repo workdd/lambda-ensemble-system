@@ -92,6 +92,6 @@ def lambda_handler(event, context):
         'result': results,
         'get_time': get_time,
         'total_time': time.time() - get_start,
-        'fin_time': time.time() - case_num,
+        'fin_time': time.time() - float(case_num),
         'accuracy': acc
     }
