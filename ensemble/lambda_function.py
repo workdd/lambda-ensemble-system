@@ -25,7 +25,7 @@ def get_s3(data):
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
     else:
-        models = ['mobilenet_v2','efficientnetb1','nasnetmobile']
+        models = ['mobilenet_v2','efficientnetb0','nasnetmobile']
         for m in models:
             filename = m +'_' + data['case_num'] + '.txt'
             object = bucket.Object(filename)
