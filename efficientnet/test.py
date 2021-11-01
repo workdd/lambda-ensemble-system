@@ -23,7 +23,7 @@ table = dynamodb.Table(table_name)
 
 def upload_s3(case_num, acc):
     item_dict = dict([(str(i), str(acc[i])) for i in range(len(acc))])
-    print(item_dict)
+    print(item_dict['0'].sort())
     s3_client.put_object(
         Body=json.dumps(item_dict),
         Bucket=bucket_ensemble,
