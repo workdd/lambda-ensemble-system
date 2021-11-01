@@ -31,13 +31,16 @@ def get_s3(data):
     else:
         models = ['mobilenet_v2', 'efficientnetb0', 'nasnetmobile']
         for m in models:
-            filename = m + '_' + data['case_num'] + '.txt'
-            object = bucket.Object(filename)
-            res = object.get()
-            res = json.load(res['Body'])
-            res = list(res.values())
-            res = [ast.literal_eval(val) for val in res]
-            response.append(res)
+            try:
+                filename = m + '_' + data['case_num'] + '.txt'
+                object = bucket.Object(filename)
+                res = object.get()
+                res = json.load(res['Body'])
+                res = list(res.values())
+                res = [ast.literal_eval(val) for val in res]
+                response.append(res)
+            except:
+                pass
         actual_labels = [int(label.split('/')[1].split('_')[0][1:]) for label in data['file_list']]
         case_num = data['case_num']
     response = np.array(response)
