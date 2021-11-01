@@ -26,7 +26,7 @@ def get_s3(data):
             res = list(res.values())
             res = [ast.literal_eval(val) for val in res]
             response.append(res)
-        actual_labels = [label.split('/')[1].split('_')[0] for label in data[0]['file_list']]
+        actual_labels = [int(label.split('/')[1].split('_')[0][1:]) for label in data[0]['file_list']]
         case_num = data[0]['case_num']
     else:
         models = ['mobilenet_v2', 'efficientnetb0', 'nasnetmobile']
