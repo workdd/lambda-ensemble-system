@@ -17,12 +17,35 @@ from tensorflow.keras.applications import (
     densenet,
     nasnet,
     mobilenet_v2,
-    efficientnet
+    efficientnet,
 )
 from tensorflow.keras.models import load_model, save_model
 import tensorflow.compat.v1.keras as keras
 import sys
 
+models = {
+    #     'xception':xception,
+    #     'vgg16':vgg16,
+    #     'vgg19':vgg19,
+    #     'resnet50':resnet50,
+    #     'resnet101':resnet,
+    #     'resnet152':resnet,
+    #     'resnet50_v2':resnet_v2,
+    #     'resnet101_v2':resnet_v2,
+    #     'resnet152_v2':resnet_v2,
+    #     'resnext50':resnext,
+    #     'resnext101':resnext,
+    #     'inception_v3':inception_v3,
+    #     'inception_resnet_v2':inception_resnet_v2,
+    #     'mobilenet':mobilenet,
+    #     'densenet121':densenet,
+    #     'densenet169':densenet,
+    #     'densenet201':densenet,
+    #     'nasnet':nasnet,
+    #     'nasnet':nasnet,
+    #     'mobilenet_v2':mobilenet_v2,
+    'efficientnetb0': efficientnet
+}
 models_detail = {
     # 'xception': xception.Xception(weights='imagenet'),
     # 'vgg16': vgg16.VGG16(weights='imagenet'),
@@ -54,6 +77,8 @@ models_detail = {
 
 model_type = str(sys.argv[1])
 saved_model_dir = f'model/{model_type}'
+temp = tf.zeros([8, 224, 224, 3])
+_ = models[model_type].preprocess_input(temp)
 
 model = models_detail[model_type]
 model.save(saved_model_dir)

@@ -8,7 +8,7 @@ import time
 
 bucket_name = 'imagenet-sample'
 bucket_ensemble = 'lambda-ensemble'
-model_name = 'efficientnetb1'
+model_name = 'efficientnetb0'
 model_path = 'model/' + model_name
 model = load_model(model_path, compile=True)
 
@@ -23,6 +23,7 @@ table = dynamodb.Table(table_name)
 
 def upload_s3(case_num, acc):
     item_dict = dict([(str(i), str(acc[i])) for i in range(len(acc))])
+    print(item_dict)
     s3_client.put_object(
         Body=json.dumps(item_dict),
         Bucket=bucket_ensemble,
@@ -55,7 +56,7 @@ def filenames_to_input(file_list):
     imgs = []
     for file in file_list:
         img = read_image_from_s3(file)
-        img = img.resize((240, 240), Image.ANTIALIAS)
+        img = img.resize((224, 224), Image.ANTIALIAS)
         img = np.array(img)
         # if image is grayscale, convert to 3 channels
         if len(img.shape) != 3:
@@ -92,6 +93,7 @@ def lambda_handler(event, context):
     total_time = time.time() - total_start
 
     return {
+        'file_list': file_list,
         'model_name': model_name,
         'case_num': case_num,
         'batch_size': batch_size,
