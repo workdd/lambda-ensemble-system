@@ -5,4 +5,4 @@
 <img src='assets/structure.png' width="600" />
 
 ### AWS Step Function을 이용해 구성
-<img src='assets/step_function.png' width="600" />
+<img src='assets/stepfunction.png' width="600" />
