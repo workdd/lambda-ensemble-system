@@ -1,1 +1,1 @@
-# lambda-ensemble-sequence
+# KSC2021 : 서버리스 앙상블 추론 시스템 논문 시스템 구성 깃허브 입니다.
