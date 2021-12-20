@@ -6,4 +6,3 @@
 
 ### AWS Step Function을 이용해 구성
 <img src='assets/step_function.png' width="600" />
-- 각 폴더는 Step Function의 람다 Dockerfile로 build 할 수 있는 코드
