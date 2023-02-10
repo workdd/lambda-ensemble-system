@@ -10,6 +10,6 @@
 <img src='assets/stepfunction.png' width="600" />
 
 ### 결과
-한국 정보 과학회주관 KSC2021 학회에 참여 및 [포스터 발표](https://user-images.githubusercontent.com/28581495/218098592-e9901327-af9d-440a-8438-e19817f9f7ca.png)를 진행하여 컴퓨터 시스템 부문 [우수논문발표상](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2260)에 입상함
+한국 정보 과학회주관 KSC2021 학회에 참여 및 [포스터 발표](https://github.com/workdd/lambda-ensemble-system/blob/main/assets/%E1%84%89%E1%85%A5%E1%84%87%E1%85%A5%E1%84%85%E1%85%B5%E1%84%89%E1%85%B3%20%E1%84%8B%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A1%E1%86%BC%E1%84%87%E1%85%B3%E1%86%AF%20%E1%84%8E%E1%85%AE%E1%84%85%E1%85%A9%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%20%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5.pdf)를 진행하여 컴퓨터 시스템 부문 [우수논문발표상](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2260)에 입상함
 
 <img src='https://user-images.githubusercontent.com/28581495/218097695-b629a171-b707-4876-aa87-9439dd6b23d3.png' width="300" />
